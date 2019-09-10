@@ -85,6 +85,7 @@ function render (req, res) {
   res.setHeader("Server", serverInfo)
 
   const handleError = err => {
+    console.log(err, 'errHandle')
     if (err.url) {
       res.redirect(err.url)
     } else if(err.code === 404) {
@@ -101,10 +102,12 @@ function render (req, res) {
     title: 'Vue HN 2.0', // default title
     url: req.url
   }
+  console.log(context)
   renderer.renderToString(context, (err, html) => {
     if (err) {
       return handleError(err)
     }
+    console.log(html, 'html')
     res.send(html)
     if (!isProd) {
       console.log(`whole request: ${Date.now() - s}ms`)
